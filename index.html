@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blau Dettio - Toko Baju Distro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #3498db;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #3498db;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo span {
+            color: #e74c3c;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        
+        .page-title h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .page-title p {
+            color: #7f8c8d;
+            font-size: 18px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .product-desc {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .rating-value {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        
+        .stars {
+            color: #f1c40f;
+        }
+        
+        .product-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .order-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .order-btn:hover {
+            background: #2980b9;
+        }
+        
+        /* Detail Produk */
+        .product-detail {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: none;
+            overflow: hidden;
+        }
+        
+        .detail-header {
+            display: flex;
+            padding: 30px;
+            gap: 30px;
+        }
+        
+        .detail-image-container {
+            flex: 1;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .detail-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .detail-info {
+            flex: 1;
+        }
+        
+        .detail-name {
+            font-size: 32px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .detail-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .detail-price {
+            font-size: 28px;
+            font-weight: 800;
+            color: #e74c3c;
+            margin-bottom: 25px;
+        }
+        
+        .detail-desc {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .size-selection h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .sizes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .size-option {
+            padding: 12px;
+            border: 2px solid #ecf0f1;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .size-option:hover, .size-option.selected {
+            border-color: #3498db;
+            background: #e1f0fa;
+            color: #3498db;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .quantity-selector label {
+            font-weight: 600;
+            margin-right: 15px;
+            color: #2c3e50;
+        }
+        
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            border: 2px solid #ecf0f1;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            background: #f8f9fa;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .qty-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .qty-input {
+            width: 60px;
+            height: 40px;
+            border: none;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .back-btn {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-right: 15px;
+        }
+        
+        .back-btn:hover {
+            background: #7f8c8d;
+        }
+        
+        .detail-order-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .detail-order-btn:hover {
+            background: #219653;
+        }
+        
+        .detail-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        /* Responsif */
+        @media (max-width: 768px) {
+            .detail-header {
+                flex-direction: column;
+            }
+            
+            .detail-image-container {
+                height: 300px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">BLAU <span>DETTIO</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a href="#"><i class="fas fa-tshirt"></i> Produk</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> Tentang</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> Kontak</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="page-title">
+            <h1>Koleksi Terbaru Baju Distro</h1>
+            <p>Kualitas premium dengan harga terjangkau</p>
+        </div>
+        
+        <!-- Dashboard Produk -->
+        <div class="products-grid" id="productsDashboard">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://github.com/MyOpenProjec/image/blob/main/biru.jpg?raw=true" alt="BLAU DETTIO PINA MEGAN">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">BLAU DETTIO PINA MEGAN</h3>
+                    <div class="product-rating">
+                        <div class="rating-value">4.5</div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <div class="product-price">Rp 40.000</div>
+                    <button class="order-btn" data-id="1" data-name="BLAU DETTIO PINA MEGAN" data-price="40000" data-image="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80">
+                        Order Now
+                    </button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://github.com/MyOpenProjec/image/blob/main/merah.jpg?raw=true" alt="BLAU DETTIO MIRIEN CORCA ITITANA">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">BLAU DETTIO MIRIEN CORCA ITITANA</h3>
+                    <div class="product-rating">
+                        <div class="rating-value">4.5</div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <div class="product-price">Rp 50.000</div>
+                    <button class="order-btn" data-id="2" data-name="BLAU DETTIO MIRIEN CORCA ITITANA" data-price="50000" data-image="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80">
+                        Order Now
+                    </button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://github.com/MyOpenProjec/image/blob/main/coklat.jpg?raw=true" alt="BLAU DETTIO KOTAK BEIJI HITAN">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">BLAU DETTIO KOTAK BEIJI HITAN</h3>
+                    <div class="product-rating">
+                        <div class="rating-value">4.5</div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <div class="product-price">Rp 50.000</div>
+                    <button class="order-btn" data-id="3" data-name="BLAU DETTIO KOTAK BEIJI HITAN" data-price="50000" data-image="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80">
+                        Order Now
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detail Produk -->
+        <div class="product-detail" id="productDetail">
+            <div class="detail-header">
+                <div class="detail-image-container">
+                    <img class="detail-image" id="detailImage" src="" alt="Detail Produk">
+                </div>
+                <div class="detail-info">
+                    <h2 class="detail-name" id="detailName">BLAU DETTIO PINA MEGAN</h2>
+                    
+                    <div class="detail-rating">
+                        <div class="rating-value">4.5</div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-price" id="detailPrice">Rp 40.000</div>
+                    
+                    <div class="detail-desc">
+                        <p>Baju distro pria dengan desain modern dan bahan nyaman dipakai sehari-hari. Cocok untuk acara kasual maupun semi formal. Bahan katun premium yang lembut dan menyerap keringat.</p>
+                    </div>
+                    
+                    <div class="size-selection">
+                        <h3>UKURAN:</h3>
+                        <div class="sizes">
+                            <div class="size-option">S</div>
+                            <div class="size-option">M</div>
+                            <div class="size-option">XL</div>
+                            <div class="size-option">XXL</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quantity-selector">
+                        <label for="quantity">JUMLAH:</label>
+                        <div class="qty-controls">
+                            <button class="qty-btn" id="decreaseQty">-</button>
+                            <input type="number" class="qty-input" id="quantity" value="1" min="1">
+                            <button class="qty-btn" id="increaseQty">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="detail-footer">
+                <button class="back-btn" id="backToDashboard">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+                <button class="detail-order-btn" id="orderViaWA">
+                    <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data produk
+        const products = {
+            1: {
+                name: "BLAU DETTIO PINA MEGAN",
+                price: 40000,
+                image: "https://raw.githubusercontent.com/MyOpenProjec/image/refs/heads/main/biru.jpg",
+                rating: 4.5,
+                description: "Baju distro pria dengan desain modern dan bahan nyaman dipakai sehari-hari. Cocok untuk acara kasual maupun semi formal. Bahan katun premium yang lembut dan menyerap keringat."
+            },
+            2: {
+                name: "BLAU DETTIO MIRIEN CORCA ITITANA",
+                price: 50000,
+                image: "https://raw.githubusercontent.com/MyOpenProjec/image/refs/heads/main/merah.jpg",
+                rating: 4.5,
+                description: "Baju distro dengan warna mencolok dan desain unik. Terbuat dari bahan katun premium yang lembut dan menyerap keringat. Cocok untuk berbagai aktivitas sehari-hari."
+            },
+            3: {
+                name: "BLAU DETTIO KOTAK BEIJI HITAN",
+                price: 50000,
+                image: "https://raw.githubusercontent.com/MyOpenProjec/image/refs/heads/main/coklat.jpg",
+                rating: 4.5,
+                description: "Baju distro dengan motif kotak-kotak yang trendy. Nyaman dipakai untuk berbagai aktivitas dan mudah dipadupadankan. Bahan katun berkualitas tinggi yang tahan lama."
+            }
+        };
+
+        // Elemen DOM
+        const productsDashboard = document.getElementById('productsDashboard');
+        const productDetail = document.getElementById('productDetail');
+        const detailImage = document.getElementById('detailImage');
+        const detailName = document.getElementById('detailName');
+        const detailPrice = document.getElementById('detailPrice');
+        const backBtn = document.getElementById('backToDashboard');
+        const orderViaWABtn = document.getElementById('orderViaWA');
+        const decreaseQtyBtn = document.getElementById('decreaseQty');
+        const increaseQtyBtn = document.getElementById('increaseQty');
+        const quantityInput = document.getElementById('quantity');
+        const sizeOptions = document.querySelectorAll('.size-option');
+        const detailDesc = document.querySelector('.detail-desc p');
+
+        // State aplikasi
+        let currentProduct = null;
+        let selectedSize = null;
+        let quantity = 1;
+
+        // Event Listeners
+        document.querySelectorAll('.order-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                showProductDetail(productId);
+            });
+        });
+
+        backBtn.addEventListener('click', function() {
+            showProductsDashboard();
+        });
+
+        orderViaWABtn.addEventListener('click', function() {
+            if (!selectedSize) {
+                alert('Silakan pilih ukuran terlebih dahulu!');
+                return;
+            }
+            sendOrderViaWhatsApp();
+        });
+
+        decreaseQtyBtn.addEventListener('click', function() {
+            if (quantity > 1) {
+                quantity--;
+                quantityInput.value = quantity;
+            }
+        });
+
+        increaseQtyBtn.addEventListener('click', function() {
+            quantity++;
+            quantityInput.value = quantity;
+        });
+
+        quantityInput.addEventListener('change', function() {
+            quantity = parseInt(this.value) || 1;
+            if (quantity < 1) {
+                quantity = 1;
+                this.value = 1;
+            }
+        });
+
+        sizeOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Hapus seleksi sebelumnya
+                sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Tandai yang dipilih
+                this.classList.add('selected');
+                selectedSize = this.textContent;
+            });
+        });
+
+        // Fungsi untuk menampilkan detail produk
+        function showProductDetail(productId) {
+            
+            currentProduct = products[productId];
+            
+            // Update tampilan detail produk
+            detailImage.src = currentProduct.image;
+            detailName.textContent = currentProduct.name;
+            detailPrice.textContent = `Rp ${currentProduct.price.toLocaleString('id-ID')}`;
+            detailDesc.textContent = currentProduct.description;
+            
+            // Tampilkan detail produk, sembunyikan dashboard
+            productsDashboard.style.display = 'none';
+            productDetail.style.display = 'block';
+            
+            // Reset selection
+            selectedSize = null;
+            sizeOptions.forEach(opt => opt.classList.remove('selected'));
+            quantity = 1;
+            quantityInput.value = 1;
+            
+            // Scroll ke atas
+            window.scrollTo(0, 0);
+        }
+
+        // Fungsi untuk menampilkan dashboard produk
+        function showProductsDashboard() {
+            productsDashboard.style.display = 'grid';
+            productDetail.style.display = 'none';
+        }
+
+        // Fungsi untuk mengirim pesanan via WhatsApp
+        function sendOrderViaWhatsApp() {
+            const totalPrice = currentProduct.price * quantity;
+            const phoneNumber = "6287850586743"; // Ganti dengan nomor WhatsApp toko
+            const imageUrl = encodeURIComponent(currentProduct.image);
+            const message = `Halo, saya ingin memesan produk:
+%0A%0A*Image:*${imageUrl}
+%0A%0A*Produk:* ${currentProduct.name}
+%0A*Ukuran:* ${selectedSize}
+%0A*Jumlah:* ${quantity}
+%0A*Total Harga:* Rp ${totalPrice.toLocaleString('id-ID')}
+%0A%0AApakah produk ini tersedia?`;
+            
+            const waUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+            window.open(waUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
